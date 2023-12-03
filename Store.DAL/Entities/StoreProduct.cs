@@ -6,7 +6,7 @@ namespace Store.DAL.Entities;
 /// Связная таблица между Store и Product
 /// </summary>
 /// <table>stores_products</table>
-public class StoreProduct : BaseEntity
+public sealed class StoreProduct : BaseEntity
 {
     /// <summary>
     /// Навигационное свойство для Store

@@ -8,7 +8,7 @@ namespace Store.DAL.Entities;
 /// Сущность - Товар
 /// </summary>
 /// <table>products</table>
-public class Product : BaseEntity
+public sealed class Product : BaseEntity
 {
     /// <summary>
     /// Наименование
@@ -24,4 +24,9 @@ public class Product : BaseEntity
     /// Описание
     /// </summary>
     public string? Description { get; set; }
+
+    /// <summary>
+    /// Связной ключ к StoreProducts
+    /// </summary>
+    public ICollection<StoreProduct> StoreProducts { get; } = new List<StoreProduct>();
 }
