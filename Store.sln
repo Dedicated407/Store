@@ -6,6 +6,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.DAL", "Store.DAL\Stor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.BLL", "Store.BLL\Store.BLL.csproj", "{8B37E670-59E4-4DC8-A92C-8C8ABEC0D489}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E3791B29-7EBA-48D3-9466-1DC302CCFFCD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configurations", "configurations", "{359B1245-634C-40BF-B5CD-961A7E31BD6C}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		Directory.Packages.props = Directory.Packages.props
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +35,10 @@ Global
 		{8B37E670-59E4-4DC8-A92C-8C8ABEC0D489}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B37E670-59E4-4DC8-A92C-8C8ABEC0D489}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B37E670-59E4-4DC8-A92C-8C8ABEC0D489}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{407C9243-F711-44B6-9BFA-037FCFE65806} = {E3791B29-7EBA-48D3-9466-1DC302CCFFCD}
+		{8B37E670-59E4-4DC8-A92C-8C8ABEC0D489} = {E3791B29-7EBA-48D3-9466-1DC302CCFFCD}
+		{0CC991D5-7DCD-4CE9-8620-008841B4795C} = {E3791B29-7EBA-48D3-9466-1DC302CCFFCD}
 	EndGlobalSection
 EndGlobal
