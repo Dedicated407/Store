@@ -4,8 +4,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.AddSwagger();
+builder.AddAutoMapper();
 builder.AddDatabase();
+builder.AddSwagger();
 
 var app = builder.Build();
 
