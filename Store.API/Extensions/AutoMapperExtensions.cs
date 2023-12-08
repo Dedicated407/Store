@@ -11,6 +11,7 @@ public static class AutoMapperExtensions
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new ProductProfile());
+                cfg.AddProfile(new StoreProfile());
             });
 
             return config.CreateMapper();

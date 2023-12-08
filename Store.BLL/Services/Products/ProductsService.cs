@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using Store.BLL.DomainModels;
+using Store.BLL.DataTransferObjects;
 using Store.DAL.Entities;
 
 namespace Store.BLL.Services.Products;
 
-internal class ProductService : IProductService
+internal class ProductsService : IProductsService
 {
     private readonly IMapper _mapper;
 
-    public ProductService(IMapper mapper)
+    public ProductsService(IMapper mapper)
     {
         _mapper = mapper;
     }

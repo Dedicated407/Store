@@ -1,8 +1,8 @@
-﻿using Store.BLL.DomainModels;
+﻿using Store.BLL.DataTransferObjects;
 
 namespace Store.BLL.Services.Products;
 
-public interface IProductService
+public interface IProductsService
 {
     Task Add(ProductDto productDto);
 }

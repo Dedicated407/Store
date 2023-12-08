@@ -1,6 +1,6 @@
 ﻿using Store.DAL.Entities.Enums;
 
-namespace Store.BLL.DomainModels;
+namespace Store.BLL.DataTransferObjects;
 
 public class ProductDto
 {
