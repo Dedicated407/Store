@@ -1,8 +1,8 @@
-﻿using Store.BLL.DataTransferObjects.Stores.Command;
+﻿using Store.BLL.DataTransferObjects;
 
 namespace Store.BLL.Services.Stores;
 
 public interface IStoresService
 {
-    Task CreateAsync(CreateStoreCommand command, CancellationToken cancellationToken);
+    Task CreateAsync(StoreDto command, CancellationToken cancellationToken);
 }

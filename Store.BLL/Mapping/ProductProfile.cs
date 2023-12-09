@@ -8,6 +8,7 @@ public sealed class ProductProfile : Profile
 {
     public ProductProfile()
     {
-        CreateMap<ProductDto, Product>();
+        CreateMap<ProductDto, Product>()
+            .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color));
     }
 }

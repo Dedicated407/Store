@@ -1,21 +1,30 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Store.BLL.DataTransferObjects;
 using Store.DAL.Entities;
+using Store.DAL.Storages.DatabaseStorage;
 
 namespace Store.BLL.Services.Products;
 
 internal class ProductsService : IProductsService
 {
     private readonly IMapper _mapper;
+    private readonly StoreDbContext _dbContext;
+    private readonly DbSet<Product> _entitySet;
 
-    public ProductsService(IMapper mapper)
+    public ProductsService(IMapper mapper, StoreDbContext dbContext)
     {
         _mapper = mapper;
+        _dbContext = dbContext;
+        _entitySet = _dbContext.Set<Product>();
     }
 
-    public async Task Add(ProductDto productDto)
+    public async Task CreateAsync(ProductDto command, CancellationToken cancellationToken)
     {
-        var product = _mapper.Map<Product>(productDto);
+        var product = _mapper.Map<Product>(command);
         // TODO: подумать над тем, стоит ли добавлять UnitOfWork, Repositories
+
+        _entitySet.Add(product);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }

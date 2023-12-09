@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Store.BLL.DataTransferObjects.Stores.Command;
+using Store.BLL.DataTransferObjects;
 using Store.BLL.Services.Stores;
 
 namespace Store.API.Controllers;
@@ -14,7 +14,7 @@ public class StoresController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAsync(CreateStoreCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateAsync(StoreDto command, CancellationToken cancellationToken)
     {
         await _storesService.CreateAsync(command, cancellationToken);
         return Ok();
