@@ -1,15 +1,14 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Store.BLL.DataTransferObjects;
+namespace Store.BLL.DataTransferObjects.StoresProducts;
 
-public class StoreProductDto
+public class ChangeProductPriceDto
 {
     [JsonIgnore]
     public Guid StoreId { get; set; }
 
+    [JsonIgnore]
     public Guid ProductId { get; set; }
 
     public decimal Price { get; set; }
-
-    public int Quantity { get; set; }
 }

@@ -1,8 +1,9 @@
-﻿using Store.BLL.DataTransferObjects;
+﻿using Store.BLL.DataTransferObjects.StoresProducts;
 
 namespace Store.BLL.Services.StoresProducts;
 
 public interface IStoresProductsService
 {
-    Task AddProductAsync(StoreProductDto command, CancellationToken cancellationToken);
+    Task AddProductAsync(CreateStoreProductDto dto, CancellationToken cancellationToken);
+    Task ChangeProductPriceAsync(ChangeProductPriceDto dto, CancellationToken cancellationToken);
 }

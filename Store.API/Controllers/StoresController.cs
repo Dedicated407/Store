@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Store.BLL.DataTransferObjects;
+using Store.BLL.DataTransferObjects.Stores;
+using Store.BLL.DataTransferObjects.StoresProducts;
 using Store.BLL.Services.Stores;
 using Store.BLL.Services.StoresProducts;
 
@@ -22,21 +23,35 @@ public class StoresController : BaseApiController
 
     [HttpPost]
     public async Task<IActionResult> CreateAsync(
-        StoreDto command, 
+        CreateStoreDto command, 
         CancellationToken cancellationToken)
     {
         await _storesService.CreateAsync(command, cancellationToken);
         return Ok();
     }
 
-    [HttpPost("{storeId:guid}/add-product")]
+    [HttpPost("{storeId:guid}/product/add")]
     public async Task<IActionResult> AddProductToStoreAsync(
         Guid storeId,
-        StoreProductDto command,
+        CreateStoreProductDto dto,
         CancellationToken cancellationToken)
     {
-        command.StoreId = storeId;
-        await _storesProductsService.AddProductAsync(command, cancellationToken);
+        dto.StoreId = storeId;
+        await _storesProductsService.AddProductAsync(dto, cancellationToken);
+        return Ok();
+    }
+
+    [HttpPatch("{storeId:guid}/product/{productId:guid}/change-price")]
+    public async Task<IActionResult> ChangeProductPriceAsync(
+        Guid storeId,
+        Guid productId,
+        ChangeProductPriceDto dto,
+        CancellationToken cancellationToken)
+    {
+        dto.StoreId = storeId;
+        dto.ProductId = productId;
+
+        await _storesProductsService.ChangeProductPriceAsync(dto, cancellationToken);
         return Ok();
     }
 }

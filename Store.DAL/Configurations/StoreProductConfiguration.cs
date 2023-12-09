@@ -11,6 +11,8 @@ public sealed class StoreProductConfiguration : BaseEntityConfiguration<StorePro
 
     protected override void ConfigureProperties(EntityTypeBuilder<StoreProduct> builder)
     {
+        builder.HasIndex(x => new { x.StoreId, x.ProductId }).IsUnique();
+
         builder.Property(e => e.StoreId).HasColumnName($"{Tables.Store}_id").IsRequired();
         builder.Property(e => e.ProductId).HasColumnName($"{Tables.Product}_id").IsRequired();
         builder.Property(e => e.Price).HasColumnName("price").IsRequired();

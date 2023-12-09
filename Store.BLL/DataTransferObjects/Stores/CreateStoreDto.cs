@@ -1,6 +1,6 @@
-﻿namespace Store.BLL.DataTransferObjects;
+﻿namespace Store.BLL.DataTransferObjects.Stores;
 
-public class StoreDto
+public class CreateStoreDto
 {
     public string Name { get; set; }
 

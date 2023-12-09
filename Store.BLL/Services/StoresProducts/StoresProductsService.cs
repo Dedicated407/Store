@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Store.BLL.DataTransferObjects;
+using Store.BLL.DataTransferObjects.StoresProducts;
 using Store.DAL.Entities;
 using Store.DAL.Storages.DatabaseStorage;
 
@@ -19,16 +19,16 @@ internal class StoresProductsService : IStoresProductsService
         _entitySet = _dbContext.Set<StoreProduct>();
     }
 
-    public async Task AddProductAsync(StoreProductDto command, CancellationToken cancellationToken)
+    public async Task AddProductAsync(CreateStoreProductDto dto, CancellationToken cancellationToken)
     {
-        var storeProduct = _mapper.Map<StoreProduct>(command);
+        var storeProduct = _mapper.Map<StoreProduct>(dto);
 
         var storeDataExists = await _dbContext.Stores.AnyAsync(x => 
                 x.Id == storeProduct.StoreId,
             cancellationToken);
         if (!storeDataExists)
         {
-            throw new ArgumentException($"{nameof(command.StoreId)} is not found!", nameof(command.StoreId));
+            throw new ArgumentException($"{nameof(dto.StoreId)} is not found!", nameof(dto.StoreId));
         }
 
         var productDataExists = await _dbContext.Products.AnyAsync(x =>
@@ -36,10 +36,27 @@ internal class StoresProductsService : IStoresProductsService
             cancellationToken);
         if (!productDataExists)
         {
-            throw new ArgumentException($"{nameof(command.ProductId)} is not found!", nameof(command.ProductId));
+            throw new ArgumentException($"{nameof(dto.ProductId)} is not found!", nameof(dto.ProductId));
         }
 
         _entitySet.Add(storeProduct);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task ChangeProductPriceAsync(ChangeProductPriceDto dto, CancellationToken cancellationToken)
+    {
+        var storeProductData = await _dbContext.StoresProducts.FirstOrDefaultAsync(x =>
+                x.StoreId == dto.StoreId &&
+                x.ProductId == dto.ProductId,
+            cancellationToken);
+        if (storeProductData == null)
+        {
+            throw new ArgumentException("StoreProduct is not found!");
+        }
+
+        storeProductData.Price = dto.Price;
+
+        _entitySet.Update(storeProductData);
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }
