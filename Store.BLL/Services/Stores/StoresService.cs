@@ -25,7 +25,5 @@ internal class StoresService : IStoresService
 
         _entitySet.Add(store);
         await _dbContext.SaveChangesAsync(cancellationToken);
-
-        // TODO: стоит ли в try catch оборачивать?
     }
 }

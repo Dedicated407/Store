@@ -19,10 +19,9 @@ internal class ProductsService : IProductsService
         _entitySet = _dbContext.Set<Product>();
     }
 
-    public async Task CreateAsync(ProductDto command, CancellationToken cancellationToken)
+    public async Task CreateAsync(ProductDtoCommand command, CancellationToken cancellationToken)
     {
         var product = _mapper.Map<Product>(command);
-        // TODO: подумать над тем, стоит ли добавлять UnitOfWork, Repositories
 
         _entitySet.Add(product);
         await _dbContext.SaveChangesAsync(cancellationToken);

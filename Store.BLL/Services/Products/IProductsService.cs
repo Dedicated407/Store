@@ -4,5 +4,5 @@ namespace Store.BLL.Services.Products;
 
 public interface IProductsService
 {
-    Task CreateAsync(ProductDto command, CancellationToken cancellationToken);
+    Task CreateAsync(ProductDtoCommand command, CancellationToken cancellationToken);
 }

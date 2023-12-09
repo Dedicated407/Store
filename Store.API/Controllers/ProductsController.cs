@@ -14,7 +14,7 @@ public class ProductsController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAsync(ProductDto command, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateAsync(ProductDtoCommand command, CancellationToken cancellationToken)
     {
         await _productsService.CreateAsync(command, cancellationToken);
         return Ok();

@@ -12,6 +12,7 @@ public static class AutoMapperExtensions
             {
                 cfg.AddProfile(new ProductProfile());
                 cfg.AddProfile(new StoreProfile());
+                cfg.AddProfile(new StoreProductProfile());
             });
 
             return config.CreateMapper();
