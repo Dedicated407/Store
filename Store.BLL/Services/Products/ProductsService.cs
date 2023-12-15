@@ -28,8 +28,6 @@ internal class ProductsService : IProductsService
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<GetAllProductsItemDto>> GetAllAsync(CancellationToken cancellationToken)
-    {
-        return _mapper.Map<IEnumerable<GetAllProductsItemDto>>(await _entitySet.ToListAsync(cancellationToken));
-    }
+    public async Task<IEnumerable<GetAllProductsItemDto>> GetAllAsync(CancellationToken cancellationToken) => 
+        _mapper.Map<IEnumerable<GetAllProductsItemDto>>(await _entitySet.ToListAsync(cancellationToken));
 }

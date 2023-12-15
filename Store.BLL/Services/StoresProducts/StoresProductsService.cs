@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Store.BLL.DataTransferObjects.Stores;
 using Store.BLL.DataTransferObjects.StoresProducts;
+using Store.BLL.DataTransferObjects.StoresProducts.Responses;
 using Store.DAL.Entities;
 using Store.DAL.Storages.DatabaseStorage;
 
@@ -75,4 +75,8 @@ internal class StoresProductsService : IStoresProductsService
 
         return _mapper.Map<ReadStoreDto>(cheapestStore);
     }
+
+    public async Task<IEnumerable<GetAllStoresProductsItemDto>> GetAllAsync(CancellationToken cancellationToken) => 
+        _mapper.Map<IEnumerable<GetAllStoresProductsItemDto>>(await _entitySet
+            .ToListAsync(cancellationToken));
 }
