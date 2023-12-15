@@ -7,7 +7,7 @@ using StoreEntity = Store.DAL.Entities.Store;
 
 namespace Store.BLL.Services.Stores;
 
-internal class StoresService : IStoresService
+public class StoresService : IStoresService
 {
     private readonly IMapper _mapper;
     private readonly StoreDbContext _dbContext;

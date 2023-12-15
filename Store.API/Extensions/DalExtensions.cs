@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Store.BLL.Services.Products;
+using Store.BLL.Services.Stores;
+using Store.BLL.Services.StoresProducts;
 using Store.DAL.Common;
 using Store.DAL.Storages.DatabaseStorage;
 
@@ -22,11 +25,17 @@ public static class DalExtensions
 
     private static void AddFileStorage(this WebApplicationBuilder builder)
     {
-        // TODO: (Ilya) file storage
+        builder.Services.AddScoped<IProductsService, ProductsFileService>();
+        builder.Services.AddScoped<IStoresService, StoresFileService>();
+        builder.Services.AddScoped<IStoresProductsService, StoresProductsFileService>();
     }
 
     private static void AddDatabase(this WebApplicationBuilder builder)
     {
+        builder.Services.AddScoped<IProductsService, ProductsDatabaseService>();
+        builder.Services.AddScoped<IStoresService, StoresService>();
+        builder.Services.AddScoped<IStoresProductsService, StoresProductsService>();
+
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
         if (string.IsNullOrWhiteSpace(connectionString))
         {

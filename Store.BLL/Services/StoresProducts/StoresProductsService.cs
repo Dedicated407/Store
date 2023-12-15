@@ -7,7 +7,7 @@ using Store.DAL.Storages.DatabaseStorage;
 
 namespace Store.BLL.Services.StoresProducts;
 
-internal class StoresProductsService : IStoresProductsService
+public class StoresProductsService : IStoresProductsService
 {
     private readonly IMapper _mapper;
     private readonly StoreDbContext _dbContext;

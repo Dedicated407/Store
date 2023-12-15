@@ -7,13 +7,13 @@ using Store.DAL.Storages.DatabaseStorage;
 
 namespace Store.BLL.Services.Products;
 
-internal class ProductsService : IProductsService
+public class ProductsDatabaseService : IProductsService
 {
     private readonly IMapper _mapper;
     private readonly StoreDbContext _dbContext;
     private readonly DbSet<Product> _entitySet;
 
-    public ProductsService(IMapper mapper, StoreDbContext dbContext)
+    public ProductsDatabaseService(IMapper mapper, StoreDbContext dbContext)
     {
         _mapper = mapper;
         _dbContext = dbContext;
