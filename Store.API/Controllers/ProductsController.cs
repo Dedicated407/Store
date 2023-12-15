@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Store.BLL.DataTransferObjects;
+using Store.BLL.DataTransferObjects.Products.Responses;
 using Store.BLL.Services.Products;
 
 namespace Store.API.Controllers;
@@ -12,6 +13,11 @@ public class ProductsController : BaseApiController
     {
         _productsService = productsService;
     }
+
+    [HttpGet]
+    public async Task<IEnumerable<GetAllProductsItemDto>> GetAllAsync(
+        CancellationToken cancellationToken) =>
+        await _productsService.GetAllAsync(cancellationToken);
 
     [HttpPost]
     public async Task<IActionResult> CreateAsync(ProductDtoCommand command, CancellationToken cancellationToken)

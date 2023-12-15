@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Store.BLL.DataTransferObjects;
+using Store.BLL.DataTransferObjects.Products.Responses;
 using Store.DAL.Entities;
 using Store.DAL.Storages.DatabaseStorage;
 
@@ -25,5 +26,10 @@ internal class ProductsService : IProductsService
 
         _entitySet.Add(product);
         await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task<IEnumerable<GetAllProductsItemDto>> GetAllAsync(CancellationToken cancellationToken)
+    {
+        return _mapper.Map<IEnumerable<GetAllProductsItemDto>>(await _entitySet.ToListAsync(cancellationToken));
     }
 }
