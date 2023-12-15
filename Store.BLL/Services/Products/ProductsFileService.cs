@@ -1,17 +1,27 @@
-﻿using Store.BLL.DataTransferObjects;
+﻿using AutoMapper;
+using Store.BLL.DataTransferObjects;
 using Store.BLL.DataTransferObjects.Products.Responses;
+using Store.DAL.Entities;
+using Store.DAL.Storages.FileStorage;
 
 namespace Store.BLL.Services.Products;
 
 public class ProductsFileService : IProductsService
 {
-    public Task CreateAsync(ProductDtoCommand command, CancellationToken cancellationToken)
+    private readonly IMapper _mapper;
+    private const string Path = "products.json";
+
+    public ProductsFileService(IMapper mapper)
     {
-        throw new NotImplementedException();
+        _mapper = mapper;
     }
 
-    public Task<IEnumerable<GetAllProductsItemDto>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task CreateAsync(ProductDtoCommand command, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var product = _mapper.Map<Product>(command);
+        await FileManager.WriteToFileAsync(Path, product);
     }
+
+    public async Task<IEnumerable<GetAllProductsItemDto>> GetAllAsync(CancellationToken cancellationToken) 
+        => _mapper.Map<IEnumerable<GetAllProductsItemDto>>(await FileManager.ReadAllFromFileAsync<Product>(Path));
 }
