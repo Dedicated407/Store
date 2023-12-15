@@ -21,6 +21,18 @@ public class StoresController : BaseApiController
         _storesProductsService = storesProductsService;
     }
 
+    #region GET
+
+    [HttpGet("find/product/{productId:guid}")]
+    public async Task<ReadStoreDto> FindStoreWithChipperProductAsync(
+        Guid productId,
+        CancellationToken cancellationToken) =>
+        await _storesProductsService.FindStoreWithChipperProductAsync(productId, cancellationToken);
+
+    #endregion
+
+    #region POST
+
     [HttpPost]
     public async Task<IActionResult> CreateAsync(
         CreateStoreDto command, 
@@ -41,6 +53,10 @@ public class StoresController : BaseApiController
         return Ok();
     }
 
+    #endregion
+
+    #region PATCH
+
     [HttpPatch("{storeId:guid}/product/{productId:guid}/change-price")]
     public async Task<IActionResult> ChangeProductPriceAsync(
         Guid storeId,
@@ -54,4 +70,6 @@ public class StoresController : BaseApiController
         await _storesProductsService.ChangeProductPriceAsync(dto, cancellationToken);
         return Ok();
     }
+
+    #endregion
 }

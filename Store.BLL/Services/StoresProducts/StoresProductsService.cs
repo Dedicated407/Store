@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Store.BLL.DataTransferObjects.Stores;
 using Store.BLL.DataTransferObjects.StoresProducts;
 using Store.DAL.Entities;
 using Store.DAL.Storages.DatabaseStorage;
@@ -58,5 +59,20 @@ internal class StoresProductsService : IStoresProductsService
 
         _entitySet.Update(storeProductData);
         await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task<ReadStoreDto> FindStoreWithChipperProductAsync(Guid productId, CancellationToken cancellationToken)
+    {
+        var cheapestStore = await _dbContext.StoresProducts
+            .Where(sp => sp.ProductId == productId)
+            .OrderBy(sp => sp.Price)
+            .Select(sp => sp.Store)
+            .FirstOrDefaultAsync(cancellationToken);
+        if (cheapestStore == null)
+        {
+            throw new ArgumentException("Product is not found!", nameof(productId));
+        }
+
+        return _mapper.Map<ReadStoreDto>(cheapestStore);
     }
 }
