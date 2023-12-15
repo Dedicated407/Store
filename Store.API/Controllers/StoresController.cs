@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Store.BLL.DataTransferObjects.Stores;
+using Store.BLL.DataTransferObjects.Stores.Responses;
 using Store.BLL.DataTransferObjects.StoresProducts;
 using Store.BLL.Services.Stores;
 using Store.BLL.Services.StoresProducts;
@@ -22,6 +23,11 @@ public class StoresController : BaseApiController
     }
 
     #region GET
+
+    [HttpGet]
+    public async Task<IEnumerable<GetAllStoresItemDto>> GetAllAsync(
+        CancellationToken cancellationToken) =>
+        await _storesService.GetAllAsync(cancellationToken);
 
     [HttpGet("find/product/{productId:guid}")]
     public async Task<ReadStoreDto> FindStoreWithChipperProductAsync(

@@ -1,4 +1,4 @@
-﻿namespace Store.BLL.DataTransferObjects.Stores;
+﻿namespace Store.BLL.DataTransferObjects.StoresProducts;
 
 public class ReadStoreDto
 {
