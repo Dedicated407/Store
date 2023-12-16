@@ -13,5 +13,7 @@ public sealed class ProductProfile : Profile
             .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color));
 
         CreateMap<Product, GetAllProductsItemDto>();
+
+        CreateMap<Product, GetAllProductsWithQuantityItemDto>();
     }
 }

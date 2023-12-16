@@ -2,7 +2,7 @@
 
 namespace Store.BLL.DataTransferObjects.Products.Responses;
 
-public class GetAllProductsItemDto
+public class GetAllProductsWithQuantityItemDto
 {
     public Guid Id { get; set; }
 
@@ -11,4 +11,6 @@ public class GetAllProductsItemDto
     public Colors Color { get; set; }
 
     public string? Description { get; set; }
+
+    public int Quantity { get; set; }
 }

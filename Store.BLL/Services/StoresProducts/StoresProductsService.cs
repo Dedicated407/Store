@@ -134,13 +134,13 @@ public class StoresProductsService : IStoresProductsService
         return _mapper.Map<ReadStoreDto>(cheapestStore);
     }
 
-    public async Task<IEnumerable<GetAllProductsItemDto>> BuyAsync(BuyProductsDto dto, CancellationToken cancellationToken)
+    public async Task<IEnumerable<GetAllProductsWithQuantityItemDto>> BuyAsync(BuyProductsDto dto, CancellationToken cancellationToken)
     {
         var storeProducts = await _entitySet
             .Where(x => x.StoreId == dto.StoreId && x.Price <= dto.Money)
             .ToListAsync(cancellationToken);
 
-        var result = new List<GetAllProductsItemDto>();
+        var result = new List<GetAllProductsWithQuantityItemDto>();
 
         var money = dto.Money;
 
@@ -150,7 +150,7 @@ public class StoresProductsService : IStoresProductsService
                     x.Id == storeProduct.ProductId, 
                 cancellationToken);
 
-            var responseDto = _mapper.Map<GetAllProductsItemDto>(product);
+            var responseDto = _mapper.Map<GetAllProductsWithQuantityItemDto>(product);
 
             var quantity = (int)Math.Floor(money / storeProduct.Price);
 

@@ -30,7 +30,7 @@ public class StoresController : BaseApiController
         CancellationToken cancellationToken) =>
         await _storesService.GetAllAsync(cancellationToken);
 
-    [HttpGet("/product/{productId:guid}")]
+    [HttpGet("/chipper-product/{productId:guid}")]
     public async Task<ReadStoreDto> FindStoreWithChipperProductAsync(
         Guid productId,
         CancellationToken cancellationToken) =>
@@ -69,7 +69,7 @@ public class StoresController : BaseApiController
     #endregion
 
     [HttpPost("buy")]
-    public async Task<IEnumerable<GetAllProductsItemDto>> BuyAsync(BuyProductsDto dto, CancellationToken cancellationToken) =>
+    public async Task<IEnumerable<GetAllProductsWithQuantityItemDto>> BuyAsync(BuyProductsDto dto, CancellationToken cancellationToken) =>
         await _storesProductsService.BuyAsync(dto, cancellationToken);
 
     #region PATCH
