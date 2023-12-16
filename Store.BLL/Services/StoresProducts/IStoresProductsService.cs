@@ -11,6 +11,7 @@ public interface IStoresProductsService
     Task<ReadStoreDto> FindStoreWithChipperProductAsync(Guid productId, CancellationToken cancellationToken);
     Task<ReadStoreDto> FindStoreWithCheapestBatchesAsync(FindCheapestBatchesDto dto, CancellationToken cancellationToken);
 
+    Task<decimal> BuyBatchAsync(BuyBatchDto dto, CancellationToken cancellationToken);
     Task<IEnumerable<GetAllProductsWithQuantityItemDto>> BuyAsync(BuyProductsDto dto, CancellationToken cancellationToken);
     Task<IEnumerable<GetAllStoresProductsItemDto>> GetAllAsync(CancellationToken cancellationToken);
 }

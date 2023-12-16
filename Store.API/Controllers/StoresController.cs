@@ -72,6 +72,10 @@ public class StoresController : BaseApiController
     public async Task<IEnumerable<GetAllProductsWithQuantityItemDto>> BuyAsync(BuyProductsDto dto, CancellationToken cancellationToken) =>
         await _storesProductsService.BuyAsync(dto, cancellationToken);
 
+    [HttpPost("buy-batches")]
+    public async Task<decimal> BuyBatchAsync(BuyBatchDto dto, CancellationToken cancellationToken) =>
+        await _storesProductsService.BuyBatchAsync(dto, cancellationToken);
+
     #region PATCH
 
     [HttpPatch("{storeId:guid}/product/{productId:guid}/change-price")]

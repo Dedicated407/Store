@@ -134,6 +134,37 @@ public class StoresProductsService : IStoresProductsService
         return _mapper.Map<ReadStoreDto>(cheapestStore);
     }
 
+    public async Task<decimal> BuyBatchAsync(BuyBatchDto dto, CancellationToken cancellationToken)
+    {
+        decimal totalCost = 0;
+
+        foreach (var itemQuantity in dto.Items.Distinct())
+        {
+            var guid = itemQuantity.ProductId;
+            int quantityToBuy = itemQuantity.Quantity;
+
+            var item = await _entitySet.FirstOrDefaultAsync(x => 
+                    x.StoreId == dto.StoreId &&
+                    x.ProductId == guid &&
+                    x.Quantity >= quantityToBuy, 
+                cancellationToken);
+
+            if (item != null)
+            {
+                item.Quantity -= quantityToBuy;
+                totalCost += item.Price * quantityToBuy;
+            }
+            else
+            {
+                throw new ArgumentException($"Товара не достаточно на складе: {guid}");
+            }
+        }
+
+        await _dbContext.SaveChangesAsync(cancellationToken);
+
+        return totalCost;
+    }
+
     public async Task<IEnumerable<GetAllProductsWithQuantityItemDto>> BuyAsync(BuyProductsDto dto, CancellationToken cancellationToken)
     {
         var storeProducts = await _entitySet

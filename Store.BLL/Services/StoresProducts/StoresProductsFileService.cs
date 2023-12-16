@@ -26,6 +26,11 @@ public class StoresProductsFileService : IStoresProductsService
         throw new NotImplementedException();
     }
 
+    public Task<decimal> BuyBatchAsync(BuyBatchDto dto, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<IEnumerable<GetAllProductsWithQuantityItemDto>> BuyAsync(BuyProductsDto dto, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
