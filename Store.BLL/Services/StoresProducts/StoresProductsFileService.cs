@@ -1,4 +1,5 @@
-﻿using Store.BLL.DataTransferObjects.StoresProducts;
+﻿using Store.BLL.DataTransferObjects.Products.Responses;
+using Store.BLL.DataTransferObjects.StoresProducts;
 using Store.BLL.DataTransferObjects.StoresProducts.Responses;
 
 namespace Store.BLL.Services.StoresProducts;
@@ -21,6 +22,11 @@ public class StoresProductsFileService : IStoresProductsService
     }
 
     public Task<ReadStoreDto> FindStoreWithCheapestBatchesAsync(FindCheapestBatchesDto dto, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<GetAllProductsItemDto>> BuyAsync(BuyProductsDto dto, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

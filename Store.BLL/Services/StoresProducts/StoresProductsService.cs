@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Store.BLL.DataTransferObjects.Products.Responses;
 using Store.BLL.DataTransferObjects.StoresProducts;
 using Store.BLL.DataTransferObjects.StoresProducts.Responses;
 using Store.DAL.Entities;
@@ -131,6 +132,40 @@ public class StoresProductsService : IStoresProductsService
         var cheapestStore = await _dbContext.Stores
             .FirstOrDefaultAsync(x => x.Id == cheapestStoreId, cancellationToken: cancellationToken);
         return _mapper.Map<ReadStoreDto>(cheapestStore);
+    }
+
+    public async Task<IEnumerable<GetAllProductsItemDto>> BuyAsync(BuyProductsDto dto, CancellationToken cancellationToken)
+    {
+        var storeProducts = await _entitySet
+            .Where(x => x.StoreId == dto.StoreId && x.Price <= dto.Money)
+            .ToListAsync(cancellationToken);
+
+        var result = new List<GetAllProductsItemDto>();
+
+        var money = dto.Money;
+
+        foreach (var storeProduct in storeProducts.TakeWhile(_ => money != 0))
+        {
+            var product = await _dbContext.Products.FirstOrDefaultAsync(x => 
+                    x.Id == storeProduct.ProductId, 
+                cancellationToken);
+
+            var responseDto = _mapper.Map<GetAllProductsItemDto>(product);
+
+            var quantity = (int)Math.Floor(money / storeProduct.Price);
+
+            if (quantity > storeProduct.Quantity)
+            {
+                quantity = storeProduct.Quantity;
+            }
+
+            money -= quantity * storeProduct.Price;
+            responseDto.Quantity += quantity;
+
+            result.Add(responseDto);
+        }
+
+        return result;
     }
 
     public async Task<IEnumerable<GetAllStoresProductsItemDto>> GetAllAsync(CancellationToken cancellationToken) => 

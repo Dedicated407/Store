@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Store.BLL.DataTransferObjects.Products.Responses;
 using Store.BLL.DataTransferObjects.Stores;
 using Store.BLL.DataTransferObjects.Stores.Responses;
 using Store.BLL.DataTransferObjects.StoresProducts;
@@ -66,6 +67,10 @@ public class StoresController : BaseApiController
         await _storesProductsService.FindStoreWithCheapestBatchesAsync(dto, cancellationToken);
 
     #endregion
+
+    [HttpPost("buy")]
+    public async Task<IEnumerable<GetAllProductsItemDto>> BuyAsync(BuyProductsDto dto, CancellationToken cancellationToken) =>
+        await _storesProductsService.BuyAsync(dto, cancellationToken);
 
     #region PATCH
 
